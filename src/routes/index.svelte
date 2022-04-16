@@ -1,4 +1,11 @@
-<h1>Welcome to SvelteKit</h1>
-<p>
-    Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-</p>
+<script lang="ts" context="module">
+    import Seo from "$lib/components/layout/Seo.svelte";
+
+    export const prerender = true;
+</script>
+
+<Seo />
+
+<div class="mt-8 flex justify-center">
+    <div class="w-full max-w-5xl">Hello, World!</div>
+</div>
