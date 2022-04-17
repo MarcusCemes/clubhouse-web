@@ -9,6 +9,7 @@
 
     /* == Props == */
 
+    export let noSuffix = false;
     export let title: string | string[] | undefined = undefined;
 
     /* == Computed == */
@@ -19,7 +20,9 @@
 
     function calculateTitle(title?: string | string[]) {
         const partsArray = title ? [title].flat() : [longName];
-        return [...partsArray, suffix].filter(isTruthy).join(SEPARATOR);
+        return [...partsArray, !noSuffix && suffix]
+            .filter(isTruthy)
+            .join(SEPARATOR);
     }
 </script>
 

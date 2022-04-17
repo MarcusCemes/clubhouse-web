@@ -3,12 +3,14 @@
     import Link from "$lib/components/common/Link.svelte";
     import Seo from "$lib/components/layout/Seo.svelte";
     import { useTimeout } from "$lib/hooks/useTimeout";
-    import { handWave } from "$lib/styles.module.css";
+    import classes from "$lib/styles.module.css";
     import {
         ArrowLeftIcon,
         CheckSquareIcon,
         HelpCircleIcon,
     } from "svelte-feather-icons";
+
+    const BUTTON_DELAY_MS = 6000;
 
     let confirming = false;
     let loadTimeout = false;
@@ -17,14 +19,14 @@
 
     useTimeout(() => {
         loadTimeout = true;
-    }, 4000);
+    }, BUTTON_DELAY_MS);
 
     function onAccept() {
         confirming = true;
     }
 </script>
 
-<Seo title="Account creation" />
+<Seo title="Welcome to Clubhouse!" noSuffix />
 
 <div
     class="min-h-screen p-2 flex flex-col justify-center items-center bg-gradient-to-tr from-[#FFC371] to-[#FF5F6D]"
@@ -35,7 +37,7 @@
         <div class="mb-12 text-lg font-bold select-none">🍻 Clubhouse</div>
 
         <h1 class="mb-8 text-4xl font-bold">
-            <span class={handWave}>👋</span> Welcome
+            <span class={classes.handWave}>👋</span> Welcome
         </h1>
 
         <p>

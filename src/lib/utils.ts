@@ -36,3 +36,13 @@ export function isTruthy<T>(value: T | null | false | undefined): value is T {
 export function ifThen<T>(condition: boolean, then: T): T | undefined {
     return condition ? then : undefined;
 }
+
+/** Explicit milliseconds -> seconds conversion. */
+export function msToS(ms: number): number {
+    return ms / 1000;
+}
+
+/** Explicit seconds -> milliseconds conversion. */
+export function sToMs(s: number): number {
+    return s * 1000;
+}
