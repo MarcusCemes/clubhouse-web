@@ -1,3 +1,4 @@
+/** Any value that is accepted by the `classes()` function. */
 export type ClassValue =
     | string
     | null
@@ -15,11 +16,11 @@ export function classes(...classes: ClassValue[]): string {
                   )
                 : x
         )
-        .filter((x) => !!x)
+        .filter((x): x is string => !!x)
         .join(" ");
 }
 
-function isObject(x: unknown): x is { [index: string]: unknown } {
+function isObject(x: unknown): x is Record<string, unknown> {
     return typeof x === "object" && x !== null;
 }
 
@@ -29,4 +30,9 @@ export function isArray<T>(x: unknown): x is Array<T> {
 
 export function isTruthy<T>(value: T | null | false | undefined): value is T {
     return !!value;
+}
+
+/** Equivalent to `condition ? then : undefined`, removes some unnecessary noise. */
+export function ifThen<T>(condition: boolean, then: T): T | undefined {
+    return condition ? then : undefined;
 }

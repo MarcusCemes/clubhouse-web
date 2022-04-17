@@ -1,7 +1,7 @@
 <script lang="ts">
     import { UserIcon } from "svelte-feather-icons";
 
-    const LINK = "https://clubhouse.epfl.ch";
+    const LINK = "/";
 </script>
 
 <nav class="h-24 flex justify-center border-b">
@@ -10,7 +10,7 @@
         <div class="flex-1" />
         <a
             href="/sign-in"
-            class="px-4 py-2 flex items-center border bg-red-600 text-white rounded font-semibold hover:bg-red-500 transition-colors duration-75 select-none"
+            class="px-4 py-2 flex items-center border bg-primary-500 text-white rounded font-semibold hover:bg-primary-400 active:bg-primary-600 transition-colors duration-75 select-none"
         >
             <UserIcon size="1x" class="mr-1" /> Sign-in
         </a>
