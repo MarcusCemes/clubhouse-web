@@ -24,7 +24,9 @@
 
         "disabled:bg-neutral-200 disabled:text-neutral-500 disabled:border-transparent disabled:duration-300 disabled:cursor-not-allowed disabled:shadow-none",
 
-        centre && "inline-flex items-center justify-center lg:justify-start",
+        centre
+            ? "inline-flex items-center justify-center lg:justify-start"
+            : "inline-block",
 
         primary
             ? "border-transparent bg-primary-500 text-white hover:bg-primary-400 active:bg-primary-600 ring-primary-500"
@@ -38,7 +40,7 @@
 
     {#if busy}
         <span
-            transition:fade={{ duration: 100 }}
+            transition:fade|local={{ duration: 100 }}
             class={classes(
                 "absolute inset-0 flex justify-center items-center transition",
                 disabled

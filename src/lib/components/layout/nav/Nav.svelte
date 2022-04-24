@@ -1,18 +1,26 @@
 <script lang="ts">
-    import { UserIcon } from "svelte-feather-icons";
+    import { authStore } from "$lib/stores/auth";
+    import NavAuthentication from "./NavAuthentication.svelte";
 
     const LINK = "/";
+    const FORUM_LINK = "https://clubhouse.mastermovies.uk";
+
+    $: authState = $authStore;
 </script>
 
 <nav class="h-24 flex justify-center border-b">
     <div class="w-full max-w-5xl flex items-center">
-        <a href={LINK} class="text-2xl font-bold select-none">🍻 Clubhouse</a>
-        <div class="flex-1" />
         <a
-            href="/sign-in"
-            class="px-4 py-2 flex items-center border bg-primary-500 text-white rounded font-semibold hover:bg-primary-400 active:bg-primary-600 transition-colors duration-75 select-none"
+            href={LINK}
+            class="relative bottom-0.5 text-2xl font-bold select-none"
+            >🍻 Clubhouse</a
         >
-            <UserIcon size="1x" class="mr-1" /> Sign-in
-        </a>
+
+        <span class="ml-12 inline-flex items-center font-semibold">
+            <a href={FORUM_LINK}>Forum</a>
+        </span>
+
+        <div class="flex-1" />
+        <NavAuthentication {authState} />
     </div>
 </nav>

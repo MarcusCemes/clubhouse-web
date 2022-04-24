@@ -5,7 +5,3 @@
 </script>
 
 <Seo />
-
-<div class="mt-8 flex justify-center">
-    <div class="w-full max-w-5xl">Hello, World!</div>
-</div>
