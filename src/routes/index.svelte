@@ -1,7 +1,5 @@
-<script lang="ts" context="module">
+<script lang="ts">
     import Seo from "$lib/components/layout/Seo.svelte";
-
-    export const prerender = true;
 </script>
 
 <Seo />

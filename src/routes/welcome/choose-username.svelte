@@ -1,10 +1,7 @@
 <script lang="ts">
     import { browser } from "$app/env";
     import { goto } from "$app/navigation";
-    import {
-        apiCheckUsername,
-        completeAccountConfirmation,
-    } from "$lib/api/auth";
+    import { apiCheckUsername, apiConfirmAccount } from "$lib/api/auth";
     import Button from "$lib/components/common/button/Button.svelte";
     import UsernameInput from "$lib/components/pages/welcome/UsernameInput.svelte";
     import { classes, debounceImmediate, getCookie } from "$lib/utils";
@@ -62,7 +59,7 @@
     async function submit() {
         submitting = true;
 
-        const signedIn = await completeAccountConfirmation(true, username);
+        const signedIn = await apiConfirmAccount(true, username);
         if (signedIn) {
             goto("/");
         }

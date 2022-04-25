@@ -1,4 +1,5 @@
 import type { AuthState } from "$lib/stores/auth";
+import type { State } from "$lib/utils";
 import { apiGet, apiPost } from "./http";
 
 export interface User {
@@ -8,37 +9,58 @@ export interface User {
     last_name?: string;
 }
 
-export async function startSignIn(): Promise<string> {
-    const { data } = await apiPost<{ code: string; url: string }>(
-        "/auth/sign-in"
+/**
+ * Starts a new sign-in flow.
+ * @returns The returned API code and a URl to redirect to
+ */
+export async function apiSignIn(
+    fetch?: typeof window.fetch
+): Promise<State<"SIGN_IN" | "CONFIRM_ACCOUNT", string>> {
+    const { data } = await apiPost<{ code: string; url?: string }>(
+        "/auth/sign-in",
+        undefined,
+        fetch
     );
 
     switch (data.code) {
         case "SIGN_IN":
-            return data.url;
-
         case "CONFIRM_ACCOUNT":
-            return "/welcome";
-    }
+            return { state: data.code, data: data.url ?? "/welcome" };
 
-    throw new Error(`Unexpected code: ${data.code}`);
+        default:
+            throw new Error(`Unexpected code: ${data.code}`);
+    }
 }
 
-export async function completeAccountConfirmation(
+/**
+ * Confirms the user's account with the API.
+ * @param accepted_tos Whether the user accepted the Terms of Service
+ * @param username The chosen username of the user
+ * @returns Whether the user is now signed in
+ */
+export async function apiConfirmAccount(
     accepted_tos: boolean,
-    username: string
+    username: string,
+    fetch?: typeof window.fetch
 ): Promise<boolean> {
     const url = "/auth/sign-in/confirm-account";
     const body = { accepted_tos, username };
-    const { data } = await apiPost(url, body);
+    const { data } = await apiPost(url, body, fetch);
     return data.code === "SIGNED_IN";
 }
 
-export async function apiAuthStatus(): Promise<AuthState> {
+/**
+ * Request the user's account information from the API, or
+ * their authentication state if they are not signed in.
+ * This information is private to the server, identified by
+ * a HTTP-only session cookie.
+ * @returns The authentication status of the user
+ */
+export async function apiCurrentUser(fetch = window.fetch): Promise<AuthState> {
     const url = "/auth/current-user";
 
     try {
-        const { data } = await apiGet<{ code: string; user: User }>(url);
+        const { data } = await apiGet<{ code: string; user: User }>(url, fetch);
 
         switch (data.code) {
             case "SIGNED_IN":
@@ -57,22 +79,31 @@ export async function apiAuthStatus(): Promise<AuthState> {
     return { state: "ERROR" };
 }
 
+/**
+ * Check the availability of a username.
+ * This API call is only available to users that are
+ * currently in the CONFIRMING_ACCOUNT authentication state.
+ *
+ * @throws {Error} If the user is not confirming their account.
+ * @returns Whether the username is available.
+ */
 export async function apiCheckUsername(
-    username: string
-): Promise<boolean | null> {
+    username: string,
+    fetch?: typeof window.fetch
+): Promise<boolean> {
+    type R = { available: boolean } | { code: string };
     const url = `/auth/check-username/${username}`;
-    const { data } = await apiGet<{ available: boolean } | { code: string }>(
-        url
-    );
+    const { data } = await apiGet<R>(url, fetch);
 
-    if ("code" in data) {
-        return null;
-    }
-
+    if ("code" in data) throw new Error(`Unexpected code: ${data.code}`);
     return data.available;
 }
 
-export async function apiSignOut() {
+/**
+ * Requests that the user be signed-out, expiring the
+ * server-side session token and browser-stored cookies.
+ */
+export async function apiSignOut(fetch?: typeof window.fetch) {
     const url = "/auth/sign-out";
-    await apiPost(url);
+    await apiPost(url, undefined, fetch);
 }
