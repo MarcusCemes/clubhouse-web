@@ -1,6 +1,6 @@
 {
     "name": "clubhouse-web",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "scripts": {
         "dev": "svelte-kit dev",
         "build": "svelte-kit build",
@@ -13,7 +13,7 @@
         "format": "prettier --write --plugin-search-dir=. ."
     },
     "devDependencies": {
-        "@sveltejs/adapter-auto": "next",
+        "@sveltejs/adapter-node": "next",
         "@sveltejs/kit": "next",
         "@typescript-eslint/eslint-plugin": "^5.10.1",
         "@typescript-eslint/parser": "^5.10.1",
