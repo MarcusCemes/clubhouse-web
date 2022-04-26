@@ -22,21 +22,20 @@
     });
 
     const validate = debounceImmediate(async (usernameToCheck: string) => {
-        if (!/[A-Za-z0-9_.]{4,30}/.test(usernameToCheck)) {
-            valid = null;
-            return;
+        try {
+            if (!/[A-Za-z0-9_.]{4,30}/.test(usernameToCheck)) {
+                valid = null;
+                return;
+            }
+            const available = await apiCheckUsername(usernameToCheck);
+            if (username !== usernameToCheck) return;
+
+            pending = false;
+            valid = available ? "valid" : "invalid";
+        } catch (error) {
+            console.error("Could not check username availability", { error });
+            valid = "error";
         }
-
-        const available = await apiCheckUsername(usernameToCheck);
-        if (username !== usernameToCheck) return;
-
-        pending = false;
-        valid =
-            available === true
-                ? "valid"
-                : available === false
-                ? "invalid"
-                : "error";
     }, 500);
 
     function fetchSuggestion(): string {

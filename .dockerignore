@@ -1,0 +1,5 @@
+.svelte-kit
+.untracked
+.vscode
+build
+node_modules

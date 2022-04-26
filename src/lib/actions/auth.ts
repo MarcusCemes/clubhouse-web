@@ -1,35 +1,35 @@
 import { goto } from "$app/navigation";
+import { session } from "$app/stores";
 import { apiSignIn, apiSignOut } from "$lib/api/auth";
-import { authStore } from "$lib/stores/auth";
+import { updateSessionStore } from "$lib/stores/auth";
 
 /**
  * Requests a new sign-in flow from the API, updates
- * the authStore and redirects the user programmatically.
+ * the session store and redirects the user programmatically.
  */
 export async function actionSignIn() {
     try {
         const { state, data } = await apiSignIn();
 
-        if (state === "CONFIRM_ACCOUNT")
-            authStore.set({ state: "CONFIRM_ACCOUNT" });
+        if (state === "CONFIRM_ACCOUNT") updateSessionStore({ state });
 
         await goto(data);
-    } catch (err) {
-        console.error("Error signing in", err);
-        authStore.set({ state: "ERROR" });
+    } catch (error) {
+        console.error("Could not sign-in", error);
+        updateSessionStore({ state: "ERROR" });
     }
 }
 
 /**
  * Requests to be signed-out from the API, updating the
- * authStore with the new authentication state.
+ * session store with the new authentication state.
  */
 export async function actionSignOut() {
     try {
         await apiSignOut();
-        authStore.set({ state: "SIGNED_OUT" });
-    } catch (err) {
-        console.error("Error signing out", err);
-        authStore.set({ state: "ERROR" });
+        session.update((x) => ({ ...x, user: { state: "SIGNED_OUT" } }));
+    } catch (error) {
+        console.error("Could not sign-out", { error });
+        session.update((x) => ({ ...x, user: { state: "ERROR" } }));
     }
 }

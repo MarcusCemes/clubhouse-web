@@ -1,10 +1,10 @@
 /// <reference types="@sveltejs/kit" />
 
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
+// This file may not contain type imports!
+// See https://github.com/sveltejs/kit/issues/3766#issuecomment-1031982175
+
 declare namespace App {
-    // interface Locals {}
-    // interface Platform {}
-    // interface Session {}
-    // interface Stuff {}
+    interface Session {
+        user: import("$lib/stores/auth").AuthState;
+    }
 }

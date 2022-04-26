@@ -17,12 +17,11 @@
 
     $: [icon, text, primary, href] = buttonTextIcon(authState) ?? [];
     $: disabled = ["CHECKING", "ERROR"].includes(authState.state) || $isAction;
-    $: busy = authState.state === "CHECKING" || $isAction;
 
     /** Returns the icon, button text, primary boolean and href. */
     function buttonTextIcon(
         auth: AuthState
-    ): [typeof SvelteComponent, string, boolean, string?] | null {
+    ): [typeof SvelteComponent, string, boolean, string?] {
         switch (auth.state) {
             case "SIGNED_IN":
                 return [LogOutIcon, "Sign out", false];
@@ -32,9 +31,6 @@
 
             case "CONFIRM_ACCOUNT":
                 return [AlertTriangleIcon, "Confirm account", true, "/welcome"];
-
-            case "CHECKING":
-                return null;
 
             case "ERROR":
                 return [CloudOffIcon, "Unavailable", false];
@@ -62,9 +58,7 @@
     </div>
 {/if}
 
-{#if text}
-    <Button on:click={onClick} {primary} {href} {busy} {disabled} centre>
-        <svelte:component this={icon} class="mr-1" size="1x" />
-        {text}
-    </Button>
-{/if}
+<Button on:click={onClick} {primary} {href} {disabled} centre>
+    <svelte:component this={icon} class="mr-1" size="1x" />
+    {text}
+</Button>

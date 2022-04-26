@@ -73,7 +73,7 @@ export async function apiCurrentUser(fetch = window.fetch): Promise<AuthState> {
 
         console.error(`Unrecognised code: ${data.code}`);
     } catch (error) {
-        /* */
+        console.error("Failed to get current user", error);
     }
 
     return { state: "ERROR" };

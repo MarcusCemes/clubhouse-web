@@ -22,9 +22,7 @@ FROM base as builder
 ENV CI=true
 
 RUN pnpm fetch && pnpm install --offline
-COPY tsconfig.json postcss.config.cjs svelte.config.js tailwind.config.cjs ./
-COPY static static
-COPY src src
+COPY . .
 
 RUN pnpm build
 
