@@ -13,23 +13,28 @@ export const getSession: GetSession = async (event) => {
 };
 
 async function currentUser(cookie: string | null): Promise<AuthState> {
-    const response = await fetch(`${API_URL}/auth/current-user`, {
-        credentials: "include",
-        headers: cookie ? { cookie } : undefined,
-    });
+    try {
+        const response = await fetch(`${API_URL}/auth/current-user`, {
+            credentials: "include",
+            headers: cookie ? { cookie } : undefined,
+        });
 
-    const { code, user } = await response.json();
+        const { code, user } = await response.json();
 
-    switch (code) {
-        case "SIGNED_IN":
-            return { state: "SIGNED_IN", data: user };
-        case "SIGNED_OUT":
-            return { state: "SIGNED_OUT" };
-        case "CONFIRM_ACCOUNT":
-            return { state: "CONFIRM_ACCOUNT" };
+        switch (code) {
+            case "SIGNED_IN":
+                return { state: "SIGNED_IN", data: user };
+            case "SIGNED_OUT":
+                return { state: "SIGNED_OUT" };
+            case "CONFIRM_ACCOUNT":
+                return { state: "CONFIRM_ACCOUNT" };
 
-        default:
-            console.error("Could not get the current user");
-            return { state: "ERROR" };
+            default:
+                console.error(`Failed to fetch user, unexpected code: ${code}`);
+                return { state: "ERROR" };
+        }
+    } catch (error) {
+        console.error("Could not fetch user", { error });
+        return { state: "ERROR" };
     }
 }
