@@ -1,4 +1,4 @@
-import { session } from "$app/stores";
+import type { session } from "$app/stores";
 import type { User } from "$lib/api/auth";
 import type { State } from "$lib/utils";
 
@@ -13,8 +13,29 @@ export type AuthState =
     // | State<"CHECKING">
     | State<"ERROR">;
 
-// export const authStore = writable<AuthState>({ state: "CHECKING" });
-
-export function updateSessionStore(user: AuthState) {
-    session.update((session) => ({ ...session, user }));
+/**
+ * A convenience function to update the session store.
+ *
+ * The session store is **contextual**, this function
+ * must be given the correct instance that can only be
+ * retrieved by synchronously calling `getStores()`
+ * during component initialization!
+ *
+ * Passing the global `$session` store will not work.
+ *
+ * ## Examples
+ *     <script lang="ts">
+ *     const { session } = getStores();
+ *
+ *     onMount(async () => {
+ *       await sleep(1000);
+ *       updateSessionStore(session, { state: "SIGNED_OUT" });
+ *     });
+ *     </script>
+ */
+export function updateSessionStore(
+    sessionCtx: typeof session,
+    user: AuthState
+): void {
+    sessionCtx.update((session) => ({ ...session, user }));
 }

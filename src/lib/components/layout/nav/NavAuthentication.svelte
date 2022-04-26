@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { getStores } from "$app/stores";
     import { actionSignIn, actionSignOut } from "$lib/actions/auth";
     import Button from "$lib/components/common/button/Button.svelte";
     import { useBusy } from "$lib/hooks/useBusy";
@@ -11,12 +12,14 @@
         UserIcon,
     } from "svelte-feather-icons";
 
-    export let authState: AuthState;
+    const { session } = getStores();
+    const { user } = $session;
 
     const [isAction, withAction] = useBusy();
 
-    $: [icon, text, primary, href] = buttonTextIcon(authState) ?? [];
-    $: disabled = ["CHECKING", "ERROR"].includes(authState.state) || $isAction;
+    $: [icon, text, primary, href] = buttonTextIcon(user);
+    $: disabled =
+        ["CHECKING", "ERROR"].includes($session.user.state) || $isAction;
 
     /** Returns the icon, button text, primary boolean and href. */
     function buttonTextIcon(
@@ -38,23 +41,23 @@
     }
 
     async function onClick() {
-        switch (authState.state) {
+        switch (user.state) {
             case "SIGNED_OUT":
-                await withAction(async () => await actionSignIn());
+                await withAction(async () => await actionSignIn(session));
                 break;
 
             case "SIGNED_IN":
-                await withAction(async () => await actionSignOut());
+                await withAction(async () => await actionSignOut(session));
                 break;
         }
     }
 </script>
 
-{#if authState.state === "SIGNED_IN"}
+{#if user.state === "SIGNED_IN"}
     <div class="mr-4 px-4 py-2 inline-flex items-center border rounded">
         <UserIcon size="1x" class="mr-1" />
-        {authState.data.first_name}
-        {authState.data.last_name}
+        {user.data.first_name}
+        {user.data.last_name}
     </div>
 {/if}
 

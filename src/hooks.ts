@@ -7,9 +7,7 @@ import type { GetSession } from "@sveltejs/kit";
  * a direct `fetch` request to the API with manual credentials.
  */
 export const getSession: GetSession = async (event) => {
-    console.log(`${new Date().toISOString()} Fetching session...`);
     const cookie = event.request.headers.get("Cookie");
-
     const user = await currentUser(cookie);
     return { user };
 };

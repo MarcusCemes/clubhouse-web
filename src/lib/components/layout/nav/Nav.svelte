@@ -1,9 +1,6 @@
 <script lang="ts">
-    import { session } from "$app/stores";
     import { FORUM_URL } from "$lib/api/constants";
     import NavAuthentication from "./NavAuthentication.svelte";
-
-    $: authState = $session.user;
 </script>
 
 <nav class="h-24 flex justify-center border-b">
@@ -17,6 +14,6 @@
         </span>
 
         <div class="flex-1" />
-        <NavAuthentication {authState} />
+        <NavAuthentication />
     </div>
 </nav>

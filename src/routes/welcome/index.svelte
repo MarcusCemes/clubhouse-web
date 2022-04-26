@@ -1,5 +1,6 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
+    import { getStores } from "$app/stores";
     import { actionSignOut } from "$lib/actions/auth";
     import Button from "$lib/components/common/button/Button.svelte";
     import Link from "$lib/components/common/Link.svelte";
@@ -10,6 +11,8 @@
         CompassIcon,
         HelpCircleIcon,
     } from "svelte-feather-icons";
+
+    const { session } = getStores();
 
     const BUTTON_DELAY_MS = 6000;
 
@@ -25,7 +28,7 @@
     async function cancel() {
         actionRunning = true;
         try {
-            await actionSignOut();
+            await actionSignOut(session);
             goto("/");
         } catch {
             actionRunning = false;
