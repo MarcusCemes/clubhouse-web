@@ -36,7 +36,7 @@
                 return [AlertTriangleIcon, "Confirm account", true, "/welcome"];
 
             case "ERROR":
-                return [CloudOffIcon, "Unavailable", false];
+                return [CloudOffIcon, "Sign-in unavailable", false];
         }
     }
 
@@ -61,7 +61,14 @@
     </div>
 {/if}
 
-<Button on:click={onClick} {primary} {href} {disabled} centre>
-    <svelte:component this={icon} class="mr-1" size="1x" />
-    {text}
-</Button>
+{#if user.state === "ERROR"}
+    <div class="inline-flex items-center text-neutral-400 select-none">
+        <svelte:component this={icon} class="mr-2" size="1x" />
+        {text}
+    </div>
+{:else}
+    <Button on:click={onClick} {primary} {href} {disabled} centre>
+        <svelte:component this={icon} class="mr-1" size="1x" />
+        {text}
+    </Button>
+{/if}
