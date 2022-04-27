@@ -1,12 +1,16 @@
 <script lang="ts">
     import { browser } from "$app/env";
     import { goto } from "$app/navigation";
-    import { apiCheckUsername, apiConfirmAccount } from "$lib/api/auth";
+    import { getStores } from "$app/stores";
+    import { actionConfirmAccount } from "$lib/actions/auth";
+    import { apiCheckUsername } from "$lib/api/auth";
     import Button from "$lib/components/common/button/Button.svelte";
     import UsernameInput from "$lib/components/pages/welcome/UsernameInput.svelte";
     import { classes, debounceImmediate, getCookie } from "$lib/utils";
     import { onMount } from "svelte";
     import { ArrowLeftIcon, CheckCircleIcon } from "svelte-feather-icons";
+
+    const { session } = getStores();
 
     let suggestion = "";
 
@@ -57,11 +61,7 @@
 
     async function submit() {
         submitting = true;
-
-        const signedIn = await apiConfirmAccount(true, username);
-        if (signedIn) {
-            goto("/");
-        }
+        (await actionConfirmAccount(session, true, username)) && goto("/");
     }
 </script>
 

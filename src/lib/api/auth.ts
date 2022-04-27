@@ -42,11 +42,14 @@ export async function apiConfirmAccount(
     accepted_tos: boolean,
     username: string,
     fetch?: typeof window.fetch
-): Promise<boolean> {
+): Promise<User> {
+    type R = { code: string; user: User };
     const url = "/auth/sign-in/confirm-account";
     const body = { accepted_tos, username };
-    const { data } = await apiPost(url, body, fetch);
-    return data.code === "SIGNED_IN";
+
+    const { data } = await apiPost<R>(url, body, fetch);
+    if (data.code === "SIGNED_IN") return data.user;
+    throw new Error(`Unexpected code: ${data.code}`);
 }
 
 /**

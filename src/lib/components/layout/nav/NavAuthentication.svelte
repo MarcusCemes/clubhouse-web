@@ -13,13 +13,11 @@
     } from "svelte-feather-icons";
 
     const { session } = getStores();
-    const { user } = $session;
+    $: user = $session.user;
 
     const [isAction, withAction] = useBusy();
 
     $: [icon, text, primary, href] = buttonTextIcon(user);
-    $: disabled =
-        ["CHECKING", "ERROR"].includes($session.user.state) || $isAction;
 
     /** Returns the icon, button text, primary boolean and href. */
     function buttonTextIcon(
@@ -67,7 +65,14 @@
         {text}
     </div>
 {:else}
-    <Button on:click={onClick} {primary} {href} {disabled} centre>
+    <Button
+        on:click={onClick}
+        {primary}
+        {href}
+        disabled={$isAction}
+        busy={$isAction}
+        centre
+    >
         <svelte:component this={icon} class="mr-1" size="1x" />
         {text}
     </Button>
