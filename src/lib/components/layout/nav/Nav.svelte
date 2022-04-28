@@ -2,6 +2,7 @@
     import { FORUM_URL } from "$lib/api/constants";
     import Logo from "$lib/components/common/Logo.svelte";
     import NavAuthentication from "./NavAuthentication.svelte";
+    import NavLink from "./NavLink.svelte";
 </script>
 
 <nav class="h-24 flex justify-center border-b">
@@ -11,7 +12,7 @@
         </a>
 
         <span class="ml-12 inline-flex items-center font-semibold">
-            <a href={FORUM_URL}>Forum</a>
+            <NavLink href={FORUM_URL}>Forum</NavLink>
         </span>
 
         <div class="flex-1" />

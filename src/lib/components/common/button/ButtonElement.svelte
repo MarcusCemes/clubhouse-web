@@ -8,8 +8,12 @@
 
 {#key "button"}
     {#if href && !disabled}
-        <a on:click class={className} {disabled} {href}><slot /></a>
+        <a on:click class={className} {disabled} {href} role="button">
+            <slot />
+        </a>
     {:else}
-        <button on:click class={className} {disabled}><slot /></button>
+        <button on:click class={className} {disabled}>
+            <slot />
+        </button>
     {/if}
 {/key}

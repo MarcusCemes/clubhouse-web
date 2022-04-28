@@ -10,9 +10,10 @@
             <div class="mt-2 pl-8">The unofficial EPFL community website.</div>
         </div>
         <div class="flex flex-col gap-y-1 items-start">
-            <Link href="/faq">FAQ</Link>
-            <Link href="/tos">Terms of Service</Link>
-            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/frequently-asked-questions">FAQ</Link>
+            <Link href="/code-of-conduct">Code of Conduct</Link>
+            <Link href="/terms-of-service">TOS</Link>
+            <Link href="/privacy">Privacy</Link>
         </div>
     </div>
 </footer>

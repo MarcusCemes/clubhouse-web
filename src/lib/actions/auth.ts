@@ -2,7 +2,6 @@ import { goto } from "$app/navigation";
 import type { session } from "$app/stores";
 import { apiConfirmAccount, apiSignIn, apiSignOut } from "$lib/api/auth";
 import { updateSessionStore } from "$lib/stores/auth";
-import { get } from "svelte/store";
 
 /**
  * Requests a new sign-in flow from the API, updates
@@ -46,7 +45,6 @@ export async function actionSignOut(sessionCtx: typeof session) {
     try {
         await apiSignOut();
         updateSessionStore(sessionCtx, { state: "SIGNED_OUT" });
-        console.log("updated session store, value is ", get(sessionCtx))
     } catch (error) {
         console.error("Could not sign-out", { error });
         updateSessionStore(sessionCtx, { state: "ERROR" });

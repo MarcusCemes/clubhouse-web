@@ -1,5 +1,7 @@
+const typographyPlugin = require("@tailwindcss/typography");
+
 module.exports = {
-    content: ["./src/**/*.{html,js,svelte,ts}"],
+    content: ["./src/**/*.{html,js,svelte,ts,md}"],
     theme: {
         extend: {
             colors: {
@@ -11,5 +13,5 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [typographyPlugin],
 };
