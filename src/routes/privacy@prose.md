@@ -159,7 +159,7 @@ the integrity of our site and welcome any feedback about these sites.
 
 <a name="coppa"></a>
 
-## [Children's Online Privacy Protection Act Compliance](#coppa)
+## Children's Online Privacy Protection Act Compliance
 
 Our site, products and services are all directed to people who are at least 13
 years old or older. If this server is in the USA, and you are under the age of
