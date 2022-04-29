@@ -2,4 +2,7 @@
     export let href: string;
 </script>
 
-<a class="text-gray-800 hover:text-gray-500" {href}><slot /></a>
+<a
+    class="inline-flex items-center text-neutral-800 hover:text-neutral-500"
+    {href}><slot /></a
+>

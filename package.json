@@ -1,6 +1,6 @@
 {
     "name": "clubhouse-web",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "scripts": {
         "dev": "svelte-kit dev",
         "dev:debug": "NODE_OPTIONS=\"--inspect\" svelte-kit dev",

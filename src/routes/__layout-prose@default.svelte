@@ -1,7 +1,9 @@
-<div class="max-w-3xl mx-auto">
-    <article
-        class="my-16 prose prose-headings:font-serif prose-h1:text-6xl prose-h2:text-3xl"
-    >
-        <slot />
-    </article>
+<div class="mt-8 mb-16 flex flex-col items-center">
+    <div class="w-full max-w-3xl">
+        <article
+            class="prose prose-headings:font-serif md:prose-h1:text-6xl md:prose-h2:text-3xl"
+        >
+            <slot />
+        </article>
+    </div>
 </div>

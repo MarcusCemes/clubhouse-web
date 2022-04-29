@@ -3,7 +3,7 @@
     import Nav from "$lib/components/layout/nav/Nav.svelte";
 </script>
 
-<div class="min-h-screen flex flex-col">
+<div class="min-h-screen px-4 flex flex-col bg-stone-50">
     <Nav />
     <main>
         <slot />
