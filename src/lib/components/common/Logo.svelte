@@ -1,4 +1,13 @@
-<span>
-    <span>🍻 Clubhouse</span>
-    <sup class="relative -top-3 -left-1 text-xs">BETA</sup>
-</span>
+<script lang="ts">
+    import src from "$lib/assets/logo/clubhouse.svg";
+    import { classes } from "$lib/utils";
+
+    let className: string | undefined = undefined;
+    export { className as class };
+</script>
+
+<img
+    {src}
+    class={classes("pointer-events-none select-none", className)}
+    alt="CLubhouse logo"
+/>
