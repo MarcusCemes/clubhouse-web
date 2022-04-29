@@ -7,13 +7,13 @@
 
 <span class={classes("flex items-center gap-x-1.5", className)}>
     <span
-        class="_dot w-2 h-2 bg-current rounded-full transition duration-100"
+        class="_dot h-2 w-2 rounded-full bg-current transition duration-100"
     />
     <span
-        class="_dot w-2 h-2 bg-current rounded-full transition duration-100"
+        class="_dot h-2 w-2 rounded-full bg-current transition duration-100"
     />
     <span
-        class="_dot w-2 h-2 bg-current rounded-full transition duration-100"
+        class="_dot h-2 w-2 rounded-full bg-current transition duration-100"
     />
 </span>
 

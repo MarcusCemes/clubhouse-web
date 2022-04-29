@@ -9,20 +9,20 @@
 <Seo />
 
 <div
-    class="min-h-screen px-4 grid grid-rows-[1fr_auto_1fr] grid-flow-row bg-stone-50"
+    class="grid min-h-screen grid-flow-row grid-rows-[1fr_auto_1fr] bg-stone-50 px-4"
 >
     <div class="flex justify-center">
         <div
-            class="w-full max-w-3xl h-32 flex justify-center md:justify-end items-center"
+            class="flex h-32 w-full max-w-3xl items-center justify-center md:justify-end"
         >
             <NavAuthentication />
         </div>
     </div>
 
-    <div class="flex flex-col justify-center items-center select-none">
-        <Logo class="px-8 w-full h-auto md:px-0 md:w-auto md:h-28" />
+    <div class="flex select-none flex-col items-center justify-center">
+        <Logo class="h-auto w-full px-8 md:h-28 md:w-auto md:px-0" />
 
-        <span class="mt-2 text-stone-500 font-semibold"
+        <span class="mt-2 font-semibold text-stone-500"
             >An unofficial website for the EPFL community.
         </span>
 
@@ -44,7 +44,7 @@
 
         <div class="mt-12">
             <a
-                class="px-6 py-3 inline-flex items-center bg-orange-600 text-white font-bold rounded-full transition-colors duration-75 hover:bg-orange-500"
+                class="inline-flex items-center rounded-full bg-orange-600 px-6 py-3 font-bold text-white transition-colors duration-75 hover:bg-orange-500"
                 href={FORUM_URL}
             >
                 <MessageSquareIcon class="mr-2" size="1x" strokeWidth={3} />

@@ -11,16 +11,16 @@
     ];
 </script>
 
-<footer class="mt-12 mb-8 md:mb-16 flex justify-center">
-    <div class="w-full max-w-5xl grid md:grid-cols-2 gap-y-8">
+<footer class="mt-12 mb-8 flex justify-center md:mb-16">
+    <div class="grid w-full max-w-5xl gap-y-8 md:grid-cols-2">
         <div class="flex flex-col items-center md:block">
             <Logo class="h-12" />
-            <div class="mt-4 md:mt-2 md:pl-14 text-gray-500 text-sm">
+            <div class="mt-4 text-sm text-gray-500 md:mt-2 md:pl-14">
                 An unofficial website for the EPFL community.
             </div>
         </div>
 
-        <div class="flex justify-center items-center">
+        <div class="flex items-center justify-center">
             <div class="inline-grid grid-cols-2 grid-rows-2 gap-x-12 gap-y-1">
                 {#each LINKS as link}
                     <Link href={link[1]}>{link[0]}</Link>

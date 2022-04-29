@@ -65,8 +65,8 @@
     }
 </script>
 
-<div class="w-full max-w-xl bg-white border px-12 py-8 rounded-md shadow-lg">
-    <div class="mb-12 text-lg font-bold select-none">🍻 Clubhouse</div>
+<div class="w-full max-w-xl rounded-md border bg-white px-12 py-8 shadow-lg">
+    <div class="mb-12 select-none text-lg font-bold">🍻 Clubhouse</div>
 
     <h1 class="text-4xl font-bold">Choose your #GamerTag</h1>
 
@@ -78,7 +78,7 @@
         <div>
             <span class="relative">
                 <span
-                    class="absolute top-0 left-6 bottom-0 flex items-center pointer-events-none"
+                    class="pointer-events-none absolute top-0 left-6 bottom-0 flex items-center"
                 >
                     &commat;
                 </span>
@@ -114,7 +114,7 @@
         change it later!
     </p>
 
-    <div class="mt-12 flex flex-col lg:flex-row justify-end gap-y-4 gap-x-6">
+    <div class="mt-12 flex flex-col justify-end gap-y-4 gap-x-6 lg:flex-row">
         <span class="flex-1" />
         <Button href="./" centre disabled={submitting}>
             <ArrowLeftIcon class="mr-1" size="1x" />

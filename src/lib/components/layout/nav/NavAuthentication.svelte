@@ -52,7 +52,7 @@
 </script>
 
 {#if user.state === "SIGNED_IN"}
-    <div class="mr-4 px-4 py-2 inline-flex items-center border rounded">
+    <div class="mr-4 inline-flex items-center rounded border px-4 py-2">
         <UserIcon size="1x" class="mr-1" />
         {user.data.first_name}
         {user.data.last_name}
@@ -60,7 +60,7 @@
 {/if}
 
 {#if user.state === "ERROR"}
-    <div class="inline-flex items-center text-neutral-400 select-none">
+    <div class="inline-flex select-none items-center text-neutral-400">
         <svelte:component this={icon} class="mr-2" size="1x" />
         {text}
     </div>

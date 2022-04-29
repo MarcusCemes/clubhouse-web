@@ -14,7 +14,7 @@
 <Seo title="Welcome to Clubhouse!" noSuffix />
 
 <div
-    class="min-h-screen p-2 flex flex-col justify-center items-center bg-gradient-to-tr from-[#FFC371] to-[#FF5F6D]"
+    class="flex min-h-screen flex-col items-center justify-center bg-gradient-to-tr from-[#FFC371] to-[#FF5F6D] p-2"
 >
     <slot />
 </div>
