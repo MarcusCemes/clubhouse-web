@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     import Seo from "$lib/components/layout/Seo.svelte";
-    import type { Load } from "./__layout@root";
+    import type { Load } from "./__layout";
 
     export const load: Load = async ({ session }) =>
         session.user.state !== "CONFIRM_ACCOUNT"
