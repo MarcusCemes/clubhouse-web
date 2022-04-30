@@ -6,7 +6,7 @@
 
 # Privacy Policy
 
-_Last updated: 2022-04-28_
+_Last updated: 2022-04-30_
 
 <!-- svelte-ignore a11y-missing-content -->
 
@@ -14,7 +14,44 @@ _Last updated: 2022-04-28_
 
 ## The Human version
 
-...
+_This is summary of the official Privacy Policy found below._
+
+Upon clicking sign-in, you will be redirected to Tequila to identify yourself,
+before being returned to Clubhouse with a unique token that can be used to
+retrieve your identifying information, such as your name, email address, unique
+ID and the academic units.
+
+_If you have recently signed into Tequila, you will not be prompted to enter
+your password and may not even notice that you have done a round-trip to
+Tequila._
+
+If you have not logged in to Clubhouse before, we do not immediately store this
+information on our servers, but instead encrypt this information and store it
+with an hour expiry on your device. You will then be guided through the account
+creation process. If you clear your cookies or click on "Take me to safety",
+this information will be immediately deleted.
+
+Once you have accepted our Terms of Service and our Privacy Policy, your consent
+and the stored information will be retransmitted to the server, decrypted and
+stored permanently in a database. Subsequent logins will be able to use the
+information stored in the database, such as your username.
+
+We do not at any point have access you your Tequila password.
+
+Whilst using our services, we keep track of posts that you have viewed, liked,
+made, replied to, etc, for the sole purpose of providing you with a better
+experience. We also store the IP address of your device and the time and date of
+your visit for a limited time in our security logs.
+
+This information is private and not shared with anyone unless we have your
+explicit consent or are compelled to for legal/law enforcement reasons (see our
+[disclosure policy](#disclose)). Naturally, our system administrators who are
+tasked with keeping the service running will also have access to your data, they
+are bound by strict confidentiality and security policies and will only use this
+data if it is in the interest of repairing our service during an outage or
+degradation of service.
+
+You may request to delete your account at any time by contacting us via email.
 
 ---
 
@@ -81,7 +118,7 @@ information.
 -   Your data is **stored and processed in Germany** on a secure private server.
 -   Your connection to Clubhouse is **encrypted using TLS 1.2 or higher**.
 -   Access to the server is kept to a strict minimum number of system
-    administrators required to keep the service functioning
+    administrators required to keep the service functioning.
 
 <!-- svelte-ignore a11y-missing-content -->
 
