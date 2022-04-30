@@ -34,7 +34,7 @@ async function currentUser(cookie: string | null): Promise<AuthState> {
                 return { state: "ERROR" };
         }
     } catch (error) {
-        console.error("Could not fetch user", { error });
+        console.error("[hooks] Could not fetch user");
         return { state: "ERROR" };
     }
 }

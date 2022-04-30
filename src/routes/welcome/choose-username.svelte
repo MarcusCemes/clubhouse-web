@@ -12,17 +12,18 @@
 
     const { session } = getStores();
 
+    let submitting = false;
     let suggestion = "";
+    let username = "";
 
-    let username = suggestion;
+    $: placeholder = `the_real_${suggestion || "deal"}`;
     $: pending = username.length >= 4;
     $: validate(username);
 
-    let submitting = false;
     let valid: "valid" | "invalid" | "error" | null = null;
 
     onMount(() => {
-        if (browser) username = fetchSuggestion();
+        if (browser) suggestion = username = fetchSuggestion();
     });
 
     const validate = debounceImmediate(async (usernameToCheck: string) => {
@@ -83,10 +84,7 @@
                     &commat;
                 </span>
 
-                <UsernameInput
-                    bind:value={username}
-                    placeholder="the_real_deal"
-                />
+                <UsernameInput bind:value={username} {placeholder} />
             </span>
 
             <div

@@ -67,11 +67,13 @@
             href="/privacy"
             newTab
             newTabIcon>Privacy Policy</Link
-        > and our <Link href="/tos" newTab newTabIcon>Terms of Service</Link>.
+        > and our <Link href="/terms-of-service" newTab newTabIcon
+            >Terms of Service</Link
+        >.
     </p>
 
     <div class="mt-12 flex flex-col justify-end gap-y-4 gap-x-6 lg:flex-row">
-        <Link class="font-semibold" href="/faq" newTab>
+        <Link class="font-semibold" href="/frequently-asked-questions" newTab>
             <HelpCircleIcon size="1x" slot="left" />
             Learn more
         </Link>
