@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-    import { browser } from "$app/env";
+    import { browser, dev } from "$app/env";
     import Logo from "$lib/components/common/Logo.svelte";
     import { HomeIcon } from "svelte-feather-icons";
     import type { Load } from "./__error";
@@ -36,7 +36,7 @@
                 Where are you off to?
             </h1>
             <p class="serif">
-                We can't find what you're looking for. This page make have
+                We can't find what you're looking for. This page may have
                 decided to take their mandatory break, or may be on holiday (and
                 forgot to turn on their vacation auto-reply!). It's also
                 possible that you may have mistyped something in the address
@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    {#if error.stack}
+    {#if dev && error.stack}
         <details class="mt-12 cursor-pointer">
             <summary>Stack trace</summary>
             <pre
