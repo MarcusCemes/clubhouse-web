@@ -54,8 +54,8 @@
 {#if user.state === "SIGNED_IN"}
     <div class="mr-4 inline-flex items-center rounded border px-4 py-2">
         <UserIcon size="1x" class="mr-1" />
-        {user.data.first_name}
-        {user.data.last_name}
+        {user.data.firstName}
+        {user.data.lastName}
     </div>
 {/if}
 

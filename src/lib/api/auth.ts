@@ -5,8 +5,8 @@ import { apiGet, apiPost } from "./http";
 export interface User {
     email: string;
     username: string;
-    first_name?: string;
-    last_name?: string;
+    firstName?: string;
+    lastName?: string;
 }
 
 /**
@@ -16,9 +16,8 @@ export interface User {
 export async function apiSignIn(
     fetch?: typeof window.fetch
 ): Promise<State<"SIGN_IN" | "CONFIRM_ACCOUNT", string>> {
-    const { data } = await apiPost<{ code: string; url?: string }>(
+    const { data } = await apiGet<{ code: string; url?: string }>(
         "/auth/sign-in",
-        undefined,
         fetch
     );
 
@@ -108,5 +107,5 @@ export async function apiCheckUsername(
  */
 export async function apiSignOut(fetch?: typeof window.fetch) {
     const url = "/auth/sign-out";
-    await apiPost(url, undefined, fetch);
+    await apiGet(url, fetch);
 }

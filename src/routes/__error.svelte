@@ -2,7 +2,7 @@
     import { browser, dev } from "$app/env";
     import Logo from "$lib/components/common/Logo.svelte";
     import { HomeIcon } from "svelte-feather-icons";
-    import type { Load } from "./__error";
+    import type { Load } from "./__types/__error";
 
     export const load: Load = ({ error, status }) => ({
         props: {
@@ -48,7 +48,7 @@
                 symbols: ✈️🌴🍹
             </p>
         {:else}
-            <h1 class="mb-6 text-3xl font-serif font-semibold">Whoops!</h1>
+            <h1 class="mb-6 font-serif text-3xl font-semibold">Whoops!</h1>
             <p class="serif">
                 Something broke. We knew we shouldn't have given our servers
                 that much coffee... We have notified our expertly trained team
@@ -56,7 +56,7 @@
                 the problem.
             </p>
 
-            <p class="mt-4 text-xs text-center">
+            <p class="mt-4 text-center text-xs">
                 If you are contacted by a member of staff, show them these
                 symbols: ☕🍌🔧
             </p>

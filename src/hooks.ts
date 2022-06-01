@@ -1,3 +1,4 @@
+import { prerendering } from "$app/env";
 import { API_URL } from "$lib/api/constants";
 import type { AuthState } from "$lib/stores/auth";
 import type { GetSession } from "@sveltejs/kit";
@@ -7,6 +8,8 @@ import type { GetSession } from "@sveltejs/kit";
  * a direct `fetch` request to the API with manual credentials.
  */
 export const getSession: GetSession = async (event) => {
+    if (prerendering) return { user: { state: "SIGNED_OUT" } };
+
     const cookie = event.request.headers.get("Cookie");
     const user = await currentUser(cookie);
     return { user };
@@ -34,7 +37,7 @@ async function currentUser(cookie: string | null): Promise<AuthState> {
                 return { state: "ERROR" };
         }
     } catch (error) {
-        console.error("[hooks] Could not fetch user");
+        console.error("[hooks] Could not fetch user", { error });
         return { state: "ERROR" };
     }
 }

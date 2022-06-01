@@ -16,6 +16,9 @@ export async function apiGet<T = JSONObject>(
         {
             method: "GET",
             credentials: "include",
+            headers: {
+                Accept: "application/json",
+            },
         },
         fetch
     );
@@ -34,6 +37,7 @@ export async function apiPost<T = JSONObject>(
             credentials: "include",
             body: payload && JSON.stringify(payload),
             headers: {
+                Accept: "application/json",
                 "Content-Type": "application/json",
             },
         },
