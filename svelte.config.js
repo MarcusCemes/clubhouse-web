@@ -4,29 +4,14 @@ import preprocess from "svelte-preprocess";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-    preprocess: [
-        preprocess(),
-        mdsvex({
-            extensions: [".md"],
-        }),
-    ],
+  preprocess: [preprocess({ postcss: true }), mdsvex({ extensions: [".md"] })],
 
-    extensions: [".svelte", ".md"],
+  extensions: [".svelte", ".md"],
 
-    kit: {
-        adapter: adapter(),
-        vite: {
-            server: {
-                hmr: {
-                    // If behind a reverse proxy during development, this
-                    // is the external port that HMR should try to connect
-                    // to, usually the same as the HTTPS port, otherwise
-                    // Vite will reload the page endlessly.
-                    clientPort: process.env.DEV_PORT,
-                },
-            },
-        },
-    },
+  kit: {
+    adapter: adapter({ precompress: true }),
+    prerender: { default: true },
+  },
 };
 
 export default config;

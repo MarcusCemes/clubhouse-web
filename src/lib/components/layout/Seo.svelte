@@ -1,36 +1,9 @@
 <script lang="ts">
-    import { isTruthy } from "$lib/utils";
+  export let title = "An unofficial website for EPFL";
 
-    const SEPARATOR = " – ";
-    const suffix = "Clubhouse";
-    const longName = "The unofficial EPFL community website";
-    const description =
-        "Clubhouse is the unofficial EPFL community website, a place for members to get together, share and discuss.";
-
-    /* == Props == */
-
-    export let noSuffix = false;
-    export let title: string | string[] | undefined = undefined;
-
-    /* == Computed == */
-
-    $: computedTitle = calculateTitle(title);
-
-    /* == Functions == */
-
-    function calculateTitle(title?: string | string[]) {
-        const partsArray = title ? [title].flat() : [longName];
-        return [...partsArray, !noSuffix && suffix]
-            .filter(isTruthy)
-            .join(SEPARATOR);
-    }
+  const suffix = "Clubhouse";
 </script>
 
 <svelte:head>
-    <title>{computedTitle}</title>
-    <meta name="description" content={description} />
-    <meta
-        name="robots"
-        content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-    />
+  <title>{title} - {suffix}</title>
 </svelte:head>

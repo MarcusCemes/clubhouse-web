@@ -1,10 +1,20 @@
-/// <reference types="@sveltejs/kit" />
-
-// This file may not contain type imports!
-// See https://github.com/sveltejs/kit/issues/3766#issuecomment-1031982175
-
 declare namespace App {
-    interface Session {
-        user: import("$lib/stores/auth").AuthState;
-    }
+  // interface Locals {}
+  // interface Platform {}
+  // interface PrivateEnv {}
+  // interface PublicEnv {}
+  // interface Session {}
+  // interface Stuff {}
+}
+
+interface ImageMeta {
+  src: string;
+  height: number;
+  width: number;
+  format: string;
+}
+
+declare module "*&meta" {
+  const image: ImageMeta[];
+  export default image;
 }

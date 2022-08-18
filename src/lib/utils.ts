@@ -1,59 +1,50 @@
 /** A particular state that something can be in, useful for type unions. */
 export type State<T extends string, U = undefined> = U extends undefined
-    ? { state: T }
-    : { state: T; data: U };
+  ? { state: T }
+  : { state: T; data: U };
 
 export async function sleep(duration_ms: number): Promise<void> {
-    await new Promise((res) => setTimeout(res, duration_ms));
+  await new Promise((res) => setTimeout(res, duration_ms));
 }
 
 /** Any value that is accepted by the `classes()` function. */
-export type ClassValue =
-    | string
-    | null
-    | undefined
-    | false
-    | { [index: string]: boolean };
+export type ClassValue = string | null | undefined | false | { [index: string]: boolean };
 
 /** A custom implementation of the `classnames`/`clsx` library. */
 export function classes(...classes: ClassValue[]): string {
-    return classes
-        .flatMap((x) =>
-            isObject(x)
-                ? Object.entries(x).map(([key, value]) =>
-                      value ? key : undefined
-                  )
-                : x
-        )
-        .filter((x): x is string => !!x)
-        .join(" ");
+  return classes
+    .flatMap((x) =>
+      isObject(x) ? Object.entries(x).map(([key, value]) => (value ? key : undefined)) : x
+    )
+    .filter((x): x is string => !!x)
+    .join(" ");
 }
 
 function isObject(x: unknown): x is Record<string, unknown> {
-    return typeof x === "object" && x !== null;
+  return typeof x === "object" && x !== null;
 }
 
 export function isArray<T>(x: unknown): x is Array<T> {
-    return x instanceof Array;
+  return x instanceof Array;
 }
 
 export function isTruthy<T>(value: T | null | false | undefined): value is T {
-    return !!value;
+  return !!value;
 }
 
 /** Equivalent to `condition ? then : undefined`, removes some unnecessary noise. */
 export function ifThen<T>(condition: boolean, then: T): T | undefined {
-    return condition ? then : undefined;
+  return condition ? then : undefined;
 }
 
 /** Explicit milliseconds -> seconds conversion. */
 export function msToS(ms: number): number {
-    return ms / 1000;
+  return ms / 1000;
 }
 
 /** Explicit seconds -> milliseconds conversion. */
 export function sToMs(s: number): number {
-    return s * 1000;
+  return s * 1000;
 }
 
 /**
@@ -88,59 +79,89 @@ export function sToMs(s: number): number {
  *     // (1 second later)
  *     // console: "5"
  */
-export const debounceImmediate = <T extends (...args: never[]) => void>(
-    fn: T,
-    delay: number
-) => {
-    let timeout: ReturnType<typeof setTimeout> | null = null;
+export const debounceImmediate = <T extends (...args: never[]) => void>(fn: T, delay: number) => {
+  let timeout: ReturnType<typeof setTimeout> | null = null;
 
-    return (...args: Parameters<T>): void => {
-        let runImmediately = true;
+  return (...args: Parameters<T>): void => {
+    let runImmediately = true;
 
-        if (timeout !== null) {
-            clearTimeout(timeout);
-            runImmediately = false;
-        }
+    if (timeout !== null) {
+      clearTimeout(timeout);
+      runImmediately = false;
+    }
 
-        timeout = setTimeout(() => {
-            timeout = null;
-            if (!runImmediately) fn(...args);
-        }, delay);
+    timeout = setTimeout(() => {
+      timeout = null;
+      if (!runImmediately) fn(...args);
+    }, delay);
 
-        if (runImmediately) fn(...args);
-    };
+    if (runImmediately) fn(...args);
+  };
 };
 
 /** Fetches the value of a browser cookie. */
 export function getCookie(name: string): string | null {
-    const nameLenPlus = name.length + 1;
-    return (
-        document.cookie
-            .split(";")
-            .map((c) => c.trim())
-            .filter((cookie) => {
-                return cookie.substring(0, nameLenPlus) === `${name}=`;
-            })
-            .map((cookie) => {
-                return decodeURIComponent(cookie.substring(nameLenPlus));
-            })[0] || null
-    );
+  const nameLenPlus = name.length + 1;
+  return (
+    document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((cookie) => {
+        return cookie.substring(0, nameLenPlus) === `${name}=`;
+      })
+      .map((cookie) => {
+        return decodeURIComponent(cookie.substring(nameLenPlus));
+      })[0] || null
+  );
 }
 
 /** Deletes a browser cookie. */
 export function deleteCookie(name: string) {
-    document.cookie = `cookiename=${name}; expires=Sat, 20 Jan 1980 12:00:00 UTC`;
+  document.cookie = `cookiename=${name}; expires=Sat, 20 Jan 1980 12:00:00 UTC`;
 
-    const nameLenPlus = name.length + 1;
-    return (
-        document.cookie
-            .split(";")
-            .map((c) => c.trim())
-            .filter((cookie) => {
-                return cookie.substring(0, nameLenPlus) === `${name}=`;
-            })
-            .map((cookie) => {
-                return decodeURIComponent(cookie.substring(nameLenPlus));
-            })[0] || null
-    );
+  const nameLenPlus = name.length + 1;
+  return (
+    document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((cookie) => {
+        return cookie.substring(0, nameLenPlus) === `${name}=`;
+      })
+      .map((cookie) => {
+        return decodeURIComponent(cookie.substring(nameLenPlus));
+      })[0] || null
+  );
+}
+
+export class AssertionError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+export function assert(x: unknown, message = "Assertion failed"): asserts x {
+  if (!x) throw new AssertionError(message);
+}
+
+/** A simple implementation of Rust's Option<T> type. */
+export class Option<T> {
+  #value: T | undefined;
+
+  constructor(value: T | undefined = undefined) {
+    this.#value = value;
+  }
+
+  public get(): T | undefined {
+    return this.#value;
+  }
+
+  public set(value: T) {
+    this.#value = value;
+  }
+
+  public take(): T | undefined {
+    const value = this.#value;
+    this.#value = undefined;
+    return value;
+  }
 }

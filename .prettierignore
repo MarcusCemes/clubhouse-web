@@ -1,6 +1,16 @@
-.svelte-kit
-build
+.DS_Store
 node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
 
+# Ignore files for PNPM, NPM and YARN
 pnpm-lock.yaml
-static
+package-lock.json
+yarn.lock
+
+# Ignore VSCode files
+.vscode

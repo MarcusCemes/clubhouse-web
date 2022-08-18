@@ -1,48 +1,47 @@
-import type { JSONObject } from "@sveltejs/kit/types/private";
-import { API_URL } from "./constants";
+import { API_URL } from "$lib/constants";
 
-interface ApiResponse<T = JSONObject> {
-    data: T;
-    status: number;
+/** A simplified interface for `fetch()`, compatible with SvelteKit's implementation. */
+export type Fetch = (info: RequestInfo, init?: RequestInit) => Promise<Response>;
+
+interface ApiResponse {
+  data: unknown;
+  status: number;
 }
 
-/** Makes a GET API request using the `makeApiRequest()` function. */
-export async function apiGet<T = JSONObject>(
-    path: string,
-    fetch?: typeof window.fetch
-): Promise<ApiResponse<T>> {
-    return await makeApiRequest<T>(
-        path,
-        {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                Accept: "application/json",
-            },
-        },
-        fetch
-    );
+/** Execute a GET API request. */
+export async function apiGet(path: string, fetch?: Fetch): Promise<ApiResponse> {
+  return await call(
+    path,
+    {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+      },
+    },
+    fetch
+  );
 }
 
-/** Makes a POST API request using the `makeApiRequest()` function. */
-export async function apiPost<T = JSONObject>(
-    path: string,
-    payload?: Record<string, unknown>,
-    fetch?: typeof window.fetch
-): Promise<ApiResponse<T>> {
-    return await makeApiRequest<T>(
-        path,
-        {
-            method: "POST",
-            credentials: "include",
-            body: payload && JSON.stringify(payload),
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        },
-        fetch
-    );
+/** Execute a POST API request. */
+export async function apiPost(
+  path: string,
+  payload?: Record<string, unknown>,
+  fetch?: Fetch
+): Promise<ApiResponse> {
+  return await call(
+    path,
+    {
+      method: "POST",
+      credentials: "include",
+      body: payload && JSON.stringify(payload),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+    fetch
+  );
 }
 
 /**
@@ -52,16 +51,16 @@ export async function apiPost<T = JSONObject>(
  *
  * A custom fetch function may be passed for the request,
  * this works really well together with SvelteKit as it
- * will forward client data such as cookies.
+ * will automatically handle the authentication headers.
  *
  * @see https://kit.svelte.dev/docs/loading
  */
-export async function makeApiRequest<T = JSONObject>(
-    path: string,
-    options: RequestInit = {},
-    fetch = window.fetch
-): Promise<ApiResponse<T>> {
-    const response = await fetch(API_URL + path, options);
-    const data = await response.json();
-    return { data, status: response.status };
+export async function call(
+  path: string,
+  options: RequestInit = {},
+  fetch: Fetch = window.fetch
+): Promise<ApiResponse> {
+  const response = await fetch(API_URL + path, options);
+  const data = await response.json();
+  return { data, status: response.status };
 }

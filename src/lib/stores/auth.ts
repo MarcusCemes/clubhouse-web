@@ -1,17 +1,34 @@
-import type { session } from "$app/stores";
-import type { User } from "$lib/api/auth";
+import { browser } from "$app/env";
+import { writable, type Readable } from "svelte/store";
+
+import { apiCurrentUser } from "$lib/api/auth";
+import type { User } from "$lib/api/core";
 import type { State } from "$lib/utils";
 
-/**
- * The authentication state is stored in the contextual
- * `$session` store.
- */
+/** The possible authentication state of the user. */
 export type AuthState =
-    | State<"SIGNED_IN", User>
-    | State<"CONFIRM_ACCOUNT">
-    | State<"SIGNED_OUT">
-    // | State<"CHECKING">
-    | State<"ERROR">;
+  | State<"SIGNED_IN", User>
+  | State<"CONFIRM_ACCOUNT", { token: string; then: string }>
+  | State<"SIGNED_OUT">
+  | State<"CHECKING">
+  | State<"ERROR", string | undefined>;
+
+/** Ensures that the auth status is only fetched when the application is loaded. */
+let stale = true;
+
+/** The application session store. */
+const sessionStore = writable<AuthState>({ state: "CHECKING" });
+
+export function getSession(): Readable<AuthState> {
+  if (browser && stale) {
+    stale = false;
+    apiCurrentUser()
+      .then(sessionStore.set)
+      .catch((error) => sessionStore.set({ state: "ERROR", data: String(error) }));
+  }
+
+  return sessionStore;
+}
 
 /**
  * A convenience function to update the session store.
@@ -33,9 +50,12 @@ export type AuthState =
  *     });
  *     </script>
  */
-export function updateSessionStore(
-    sessionCtx: typeof session,
-    user: AuthState
-): void {
-    sessionCtx.update((session) => ({ ...session, user }));
+export function setSession(state: AuthState): void {
+  stale = false;
+  sessionStore.set(state);
+}
+
+export function updateSession(fn: (state: AuthState) => AuthState): void {
+  stale = false;
+  sessionStore.update(fn);
 }

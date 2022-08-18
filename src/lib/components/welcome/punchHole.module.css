@@ -1,0 +1,8 @@
+.punchHole {
+  --mask-size: 0%;
+  mask-image: radial-gradient(transparent var(--mask-size), #000 calc(var(--mask-size) + 0.01%));
+
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  mask-size: 100vmax 100vmax;
+}

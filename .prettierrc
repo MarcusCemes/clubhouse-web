@@ -1,4 +1,5 @@
 {
-    "tabWidth": 4,
-    "proseWrap": "always"
+  "printWidth": 100,
+  "importOrder": ["^node:(.*)$", "<THIRD_PARTY_MODULES>", "^\\$lib", "^[./]"],
+  "importOrderSeparation": true
 }
