@@ -43,7 +43,11 @@ export async function apiSignInComplete(
   key: string,
   auth_check: string,
   fetch?: Fetch
-): Promise<{ code: "SIGNED_IN"; user: User } | { code: "CONFIRM_ACCOUNT"; token: string }> {
+): Promise<
+  | { code: "SIGNED_IN"; user: User }
+  | { code: "CONFIRM_ACCOUNT"; token: string }
+  | { code: "E_BAD_KEY" }
+> {
   const url = "/auth/complete";
 
   const { data } = await apiPost(url, { key, auth_check }, fetch);
@@ -55,6 +59,9 @@ export async function apiSignInComplete(
 
     case "CONFIRM_ACCOUNT":
       return { code, token: tokenDto.parse(data).token };
+
+    case "E_BAD_KEY":
+      return { code: "E_BAD_KEY" };
 
     default:
       throw new ApiCodeError(code);

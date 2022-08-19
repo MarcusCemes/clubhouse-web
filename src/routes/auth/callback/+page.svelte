@@ -3,11 +3,15 @@
   import { onMount } from "svelte";
 
   import { apiSignInComplete } from "$lib/api/auth";
+  import ScreenLoader from "$lib/components/common/ScreenLoader.svelte";
+  import ErrorPage from "$lib/components/error/ErrorPage.svelte";
   import { setSession } from "$lib/stores/auth";
 
   import type { PageData } from "./$types";
 
   export let data: PageData;
+
+  let badKey = false;
 
   onMount(async () => {
     const result = await apiSignInComplete(data.key, data.authCheck);
@@ -22,6 +26,16 @@
         setSession({ state: result.code, data: { token: result.token, then: data.then } });
         goto("/welcome");
         break;
+
+      case "E_BAD_KEY":
+        badKey = true;
+        break;
     }
   });
 </script>
+
+{#if !badKey}
+  <ScreenLoader />
+{:else}
+  <ErrorPage status="E_BAD_KEY" message="The key is invalid or has expired" />
+{/if}
