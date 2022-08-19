@@ -1,6 +1,6 @@
 #
 # Author:   Marcus Cemes
-# Date:     2022-08-13
+# Date:     2022-08-19
 #
 # Builds the project and delivers an optimised release image
 # that can serve static requests on port 3000. Leverges Docker's
@@ -49,5 +49,4 @@ RUN pnpm install --prod --offline
 
 COPY --from=builder /app/build build
 
-EXPOSE 3000/tcp
-ENTRYPOINT node build/index.js
+CMD ["node", "build/index.js"]
