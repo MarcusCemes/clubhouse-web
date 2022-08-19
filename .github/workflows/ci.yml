@@ -56,3 +56,8 @@ jobs:
         with:
           push: true
           tags: marcuscemes/clubhouse-web:latest
+          build-args: |
+            VITE_WEBSITE_URL=${{ secrets.VITE_WEBSITE_URL }}
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
+            VITE_FORUM_URL=${{ secrets.VITE_FORUM_URL }}
+            VITE_CONTACT_ADDRESS=${{ secrets.VITE_CONTACT_ADDRESS }}

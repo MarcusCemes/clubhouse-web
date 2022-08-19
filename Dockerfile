@@ -19,6 +19,11 @@ COPY pnpm-lock.yaml ./
 FROM base as builder
 ENV CI=true
 
+ARG VITE_WEBSITE_URL
+ARG VITE_API_URL
+ARG VITE_FORUM_URL
+ARG VITE_CONTACT_ADDRESS
+
 RUN pnpm fetch
 
 COPY package.json ./
@@ -26,6 +31,7 @@ RUN pnpm install --offline
 
 COPY ./ ./
 
+RUN pnpm generate
 RUN pnpm build
 
 
