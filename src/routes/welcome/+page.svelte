@@ -23,7 +23,7 @@
 
   $: if (!ignoreSignIn && !["CHECKING", "CONFIRM_ACCOUNT"].includes(state.state)) {
     toast.error("No pending account confirmation");
-    goto("/");
+    goto("/", { replaceState: true });
   }
 
   $: disabled = $busy || state.state !== "CONFIRM_ACCOUNT";
@@ -45,9 +45,9 @@
 
           if (welcomeAlsoUsername.take()) {
             chooseUsernameThen.set(confirmState.data.then);
-            goto("/choose-username");
+            goto("/choose-username", { replaceState: true });
           } else {
-            goto(confirmState.data.then);
+            goto(confirmState.data.then, { replaceState: true });
           }
           break;
 
@@ -70,7 +70,7 @@
     ignoreSignIn = true;
     setSession({ state: "SIGNED_OUT" });
     toast.success("You have been forgotten");
-    goto("/");
+    goto("/", { replaceState: true });
   }
 </script>
 

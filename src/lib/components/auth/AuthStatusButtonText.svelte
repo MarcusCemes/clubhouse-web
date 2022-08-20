@@ -17,8 +17,10 @@
   Sign in
 {:else if state.state === "SIGNED_IN"}
   <Icon class="mr-2 h-5 w-5" src={Menu} />
-  {state.data.first_name}
-  {state.data.last_name}
+  <span class="overflow-hidden text-ellipsis whitespace-nowrap">
+    {state.data.first_name}
+    {state.data.last_name}
+  </span>
 {:else if state.state === "ERROR"}
   <Icon class="mr-2 h-5 w-5 text-gray-500" src={StatusOffline} />
   <span class="text-gray-500">Unavailable</span>

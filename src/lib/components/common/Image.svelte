@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { createEventDispatcher, onMount } from "svelte";
+
   type GroupedFormats = { [index: string]: ImageMeta[] };
 
   export let alt: string;
@@ -8,8 +10,18 @@
   let className: string | undefined = undefined;
   export { className as class };
 
+  const dispatch = createEventDispatcher();
+
+  let img: HTMLImageElement | undefined;
+  let loaded = false;
+
+  $: if (loaded) dispatch("load");
   $: src = getSource(image);
   $: srcsets = generateSrcsets(groupFormats(image));
+
+  onMount(() => {
+    if (img?.complete) loaded = true;
+  });
 
   function getSource(image: ImageMeta[]): string | undefined {
     return image.at(-1)?.src;
@@ -58,11 +70,22 @@
         return "application/octet-stream";
     }
   }
+
+  function onLoad() {
+    loaded = true;
+  }
 </script>
 
 <picture>
   {#each srcsets as [type, srcset]}
     <source {type} {srcset} />
   {/each}
-  <img {alt} class={cover ? `${className} w-full h-full object-cover` : className} {src} />
+
+  <img
+    bind:this={img}
+    on:load={onLoad}
+    {alt}
+    class={cover ? `${className} w-full h-full object-cover` : className}
+    {src}
+  />
 </picture>

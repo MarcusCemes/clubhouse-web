@@ -1,11 +1,10 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { getStores } from "$app/stores";
-  import { fade } from "svelte/transition";
 
   import { chooseUsernameThen } from "$lib/../routes/choose-username/+page";
   import { apiDiscourseConnect, apiSignInStart } from "$lib/api/auth";
-  import OnMount from "$lib/components/common/OnMount.svelte";
+  import ScreenLoader from "$lib/components/common/ScreenLoader.svelte";
   import { getSession, type AuthState } from "$lib/stores/auth";
 
   const { page } = getStores();
@@ -31,12 +30,12 @@
 
   async function chooseUsername(url: URL) {
     chooseUsernameThen.set(url.href);
-    await goto("/choose-username");
+    goto("/choose-username", { replaceState: true });
   }
 
   async function redirectToSignIn(url: URL) {
     const { redirect } = await apiSignInStart(url.href);
-    goto(redirect);
+    goto(redirect, { replaceState: true });
   }
 
   async function connect(url: URL) {
@@ -49,13 +48,9 @@
 
     const result = await apiDiscourseConnect(sso, sig);
 
-    if (result.code === "CONNECT") goto(result.redirect);
+    if (result.code === "CONNECT") goto(result.redirect, { replaceState: true });
     else redirectToSignIn(url);
   }
 </script>
 
-<OnMount>
-  <div in:fade|local={{ delay: 1000 }} class="flex min-h-screen items-center justify-center">
-    Signing in...
-  </div>
-</OnMount>
+<ScreenLoader>Signing in</ScreenLoader>

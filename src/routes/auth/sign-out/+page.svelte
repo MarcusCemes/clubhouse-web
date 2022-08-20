@@ -7,7 +7,7 @@
 
   onMount(async () => {
     await apiSignOut();
-    goto("/");
+    goto("/", { replaceState: true });
   });
 </script>
 

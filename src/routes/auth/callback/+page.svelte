@@ -19,12 +19,12 @@
     switch (result.code) {
       case "SIGNED_IN":
         setSession({ state: result.code, data: result.user });
-        goto(data.then);
+        goto(data.then, { replaceState: true });
         break;
 
       case "CONFIRM_ACCOUNT":
         setSession({ state: result.code, data: { token: result.token, then: data.then } });
-        goto("/welcome");
+        goto("/welcome", { replaceState: true });
         break;
 
       case "E_BAD_KEY":

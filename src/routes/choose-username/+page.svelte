@@ -16,7 +16,7 @@
   const session = getSession();
 
   $: if (!["CHECKING", "SIGNED_IN"].includes($session.state)) {
-    goto("/");
+    goto("/", { replaceState: true });
   }
 
   function updateUsername(username: string) {
@@ -30,17 +30,17 @@
       try {
         const result = await apiChooseUsername(username);
 
-        const then = chooseUsernameThen.take();
+        const then = chooseUsernameThen.take() ?? "/";
 
         switch (result.code) {
           case "USERNAME_CHANGED":
             updateUsername(username);
-            goto(then ?? "/");
+            goto(then, { replaceState: true });
             break;
 
           case "E_USERNAME_CHOSEN":
             toast.error("You already have a username!");
-            goto(then ?? "/");
+            goto(then, { replaceState: true });
             break;
 
           default:
@@ -54,7 +54,7 @@
   }
 
   function onReject() {
-    goto("/");
+    goto("/", { replaceState: true });
   }
 </script>
 
