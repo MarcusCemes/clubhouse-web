@@ -68,7 +68,7 @@
 
   async function onReject() {
     ignoreSignIn = true;
-    setSession({ state: "SIGNED_OUT" });
+    setSession({ state: "SIGNED_OUT", data: undefined });
     toast.success("You have been forgotten");
     goto("/", { replaceState: true });
   }

@@ -17,7 +17,7 @@ export type AuthState =
 let stale = true;
 
 /** The application session store. */
-const sessionStore = writable<AuthState>({ state: "CHECKING" });
+const sessionStore = writable<AuthState>({ state: "CHECKING", data: undefined });
 
 export function getSession(): Readable<AuthState> {
   if (browser && stale) {

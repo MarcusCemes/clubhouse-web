@@ -34,8 +34,5 @@
 {#if !badToken}
   <ScreenLoader />
 {:else}
-  <ErrorPage
-    status={typeof badToken === "string" ? badToken : undefined}
-    message="Token rejected by API"
-  />
+  <ErrorPage {status} message="Token rejected by API" />
 {/if}

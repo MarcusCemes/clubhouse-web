@@ -22,7 +22,7 @@
 
   async function onSignOut() {
     await apiSignOut();
-    setSession({ state: "SIGNED_OUT" });
+    setSession({ state: "SIGNED_OUT", data: undefined });
     toast.success("You have been signed out");
   }
 

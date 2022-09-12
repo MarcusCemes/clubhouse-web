@@ -106,7 +106,7 @@ export async function apiCurrentUser(fetch = window.fetch): Promise<AuthState> {
       return { state: code, data: userDto.parse(data).user };
 
     case "SIGNED_OUT":
-      return { state: code };
+      return { state: code, data: undefined };
 
     default:
       throw new ApiCodeError(code);
