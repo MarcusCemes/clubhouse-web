@@ -19,7 +19,7 @@
 
 <Seo />
 
-<div class="grid min-h-screen grid-flow-row grid-rows-[1fr_auto_1fr] bg-stone-50 px-4">
+<div class="grid min-h-screen grid-flow-row grid-rows-[1fr_auto_1fr] px-4">
   <div class="flex justify-center">
     <div class="flex h-32 w-full max-w-2xl items-center justify-end">
       <AuthStatus />

@@ -20,9 +20,9 @@ export const userSchema = z.object({
   uid: z.string(),
   email: z.string(),
   username: z.union([z.string(), z.null()]),
-  first_name: z.string().optional(),
-  last_name: z.string().optional(),
-  unit: z.string().optional(),
+  first_name: z.union([z.string(), z.null()]),
+  last_name: z.union([z.string(), z.null()]),
+  unit: z.union([z.string(), z.null()]),
 });
 
 /** The generated type of a `User` schema. */

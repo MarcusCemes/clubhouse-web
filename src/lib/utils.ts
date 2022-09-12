@@ -1,7 +1,5 @@
 /** A particular state that something can be in, useful for type unions. */
-export type State<T extends string, U = undefined> = U extends undefined
-  ? { state: T }
-  : { state: T; data: U };
+export type State<T extends string, U = undefined> = { state: T; data: U };
 
 export async function sleep(duration_ms: number): Promise<void> {
   await new Promise((res) => setTimeout(res, duration_ms));

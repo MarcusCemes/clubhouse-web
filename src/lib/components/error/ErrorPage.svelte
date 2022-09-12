@@ -26,7 +26,7 @@
   }
 </script>
 
-<div class="flex min-h-screen flex-col items-center justify-center bg-stone-50 py-8 text-gray-700">
+<div class="flex min-h-screen flex-col items-center justify-center py-8 text-gray-700">
   <div class="w-full max-w-lg px-4">
     <div class="flex justify-center">
       <Logo class="mb-8 w-full px-4 md:w-64" />

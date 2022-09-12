@@ -79,6 +79,7 @@ export async function apiConfirmAccount(token: string, fetch?: Fetch): Promise<A
     case "SIGNED_IN":
       return { state: code, data: userDto.parse(data).user };
 
+    case "E_BAD_TOKEN":
     case "E_TOKEN_EXPIRED":
       return { state: "ERROR", data: code };
 
